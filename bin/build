@@ -14,14 +14,14 @@ source "${OPENSHIFT_HOMEDIR}/${cartridge_type}/lib/utils"
 # Run when jenkins is not being used or run when inside a build.
 clean_build_marker=".openshift/markers/force_clean_build"
 if [ -f "${OPENSHIFT_REPO_DIR}$clean_build_marker" ]; then
-   echo "  - Found a $clean_build_marker marker - recreating virtenv ..." 1>&2
+   echo "  - Found a $clean_build_marker marker - recreating virtualenv ..." 1>&2
    delete_virtualenv
 fi
 
-#  Create (or update if exists) and activate the virtualenv.
+#  Create (or update if exists) and activate the virtual env.
 create_virtualenv
 activate_virtualenv
-echo "  - Created/Updated virtenv and activated it."
+echo "  - Created/Updated virtual env and activated it."
 
 if [ -f "${OPENSHIFT_REPO_DIR}setup.py" ]; then
    echo " - Found setup.py. Processing it ..."
@@ -35,6 +35,6 @@ if [ -f "${OPENSHIFT_REPO_DIR}setup.py" ]; then
 fi
 
 
-#  Fix the scripts + .pth files in the virtualenv - make it relocatable.
+#  Fix the scripts + .pth files in the virtual env - make it relocatable.
 make_virtualenv_relocatable
 

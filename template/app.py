@@ -5,17 +5,14 @@ import sys
 
 PYCART_DIR = ''.join(['python-', '.'.join(map(str, sys.version_info[:2]))])
 
+
 try:
    zvirtenv = os.path.join(os.environ['OPENSHIFT_HOMEDIR'], PYCART_DIR,
                            'virtenv', 'bin', 'activate_this.py')
-   execfile(zvirtenv, dict(__file__ = zvirtenv) )
+   exec(compile(open(zvirtenv).read(), zvirtenv, 'exec'),
+        dict(__file__ = zvirtenv) )
 except IOError:
    pass
-
-
-def run_gevent_server(app, ip, port=8080):
-   from gevent.pywsgi import WSGIServer
-   WSGIServer((ip, port), app).serve_forever()
 
 
 def run_simple_httpd_server(app, ip, port=8080):
@@ -37,11 +34,6 @@ if __name__ == '__main__':
    port = 8080
    zapp = imp.load_source('application', 'wsgi/application')
 
-   #  Use gevent if we have it, otherwise run a simple httpd server.
-   print 'Starting WSGIServer on %s:%d ... ' % (ip, port)
-   try:
-      run_gevent_server(zapp.application, ip, port)
-   except:
-      print 'gevent probably not installed - using default simple server ...'
-      run_simple_httpd_server(zapp.application, ip, port)
+   print('Starting WSGIServer on %s:%d ... ' % (ip, port))
+   run_simple_httpd_server(zapp.application, ip, port)
 

@@ -14,18 +14,18 @@ source "${OPENSHIFT_HOMEDIR}/${cartridge_type}/lib/utils"
 extract_package_files "${OPENSHIFT_HOMEDIR}/$cartridge_type/opt"
 
 #  Add the python cartridge environment variables.
-add_cartridge_env_var "PYTHON_EGG_CACHE" "${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/.python-eggs"
+add_cartridge_env_var "PYTHON_EGG_CACHE" "${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/venv/.python-eggs"
 
-#  Create the virtualenv.
-create_virtualenv
+#  Create the virtual env.
+create_virtualenv "install-setup-tools-in-the-background"
 
 #  Write a file that can be sourced for setting the LD_LIBRARY_PATH and
-#  activating the virtualenv on the shell.
+#  activating the virtual env on the shell.
 cat > "${OPENSHIFT_HOMEDIR}/$cartridge_type/activate_virtenv"  <<AVEOF
 #  Set the library path so that the python 3.3 shared library can be found.
 export LD_LIBRARY_PATH="${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LD_LIBRARY_PATH}" 
 export LIBRARY_PATH="${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LIBRARY_PATH}" 
-source ${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/bin/activate
+source ${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/venv/bin/activate
 AVEOF
 
 chmod 555 "${OPENSHIFT_HOMEDIR}/$cartridge_type/activate_virtenv"

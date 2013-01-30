@@ -11,7 +11,7 @@ source "${CARTRIDGE_BASE_PATH}/${cartridge_type}/info/bin/source_env_vars"
 source "${OPENSHIFT_HOMEDIR}/${cartridge_type}/lib/utils"
 
 
-#  Create (or update if exists) and activate the virtualenv.
+#  Create (or update if exists) and activate the virtual env.
 create_virtualenv
 activate_virtualenv
 

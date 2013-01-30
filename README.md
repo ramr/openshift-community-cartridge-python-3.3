@@ -16,7 +16,7 @@ Create a namespace, if you haven't already do so
 
 Create a python-3.3 application (you can name it anything via -a)
 
-    rhc app create pecanpie python-3.3
+    rhc app create meatpie python-3.3
 
 
 Template Sample Application Caveats
@@ -35,7 +35,7 @@ For more details, see: http://www.gevent.org/
 
 ssh/virtualenv Caveats
 ----------------------
-When you ssh into your app/gear, you will need to source in a script to setup the library paths and activate the virtualenv python 3.3 is installed under.
+When you ssh into your app/gear, you will need to source in a script to setup the library paths and activate the virtual env python 3.3 is installed under.
 
     ssh  $guid@$app-$ns.rhcloud.com
     rhcsh> source python-3.3/activate_virtenv

@@ -13,7 +13,7 @@ source "${OPENSHIFT_HOMEDIR}/${cartridge_type}/lib/utils"
 #  Stop the processes.
 $(basename "$0")/control stop
 
-#  Delete the virtualenv.
+#  Delete the virtual env.
 delete_virtualenv
 
 #  Remove the cartridge environment variables.
