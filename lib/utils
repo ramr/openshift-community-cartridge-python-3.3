@@ -6,12 +6,12 @@ cartridge_type="python-3.3"
 [ -z "$OPENSHIFT_HOMEDIR" ]  &&  source ~/.env/OPENSHIFT_HOMEDIR
 
 #  Setup variables.
-python27_dir=${OPENSHIFT_HOMEDIR}/$cartridge_type
-python27_binary=$python27_dir/opt/bin/python
-virtenv_dir=$python27_dir/virtenv
+python33_dir=${OPENSHIFT_HOMEDIR}/$cartridge_type
+python33_binary="$python33_dir/opt/bin/python3.3"
+virtenv_dir=$python33_dir/virtenv
 
 #  Add the python3.3 shared library to the load path.
-export LD_LIBRARY_PATH="${python27_dir}/opt/lib:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${python33_dir}/opt/lib:${LD_LIBRARY_PATH}"
 
 
 #
@@ -28,7 +28,7 @@ function create_virtualenv() {
 
    # Hack to fix symlink on rsync issue
    /bin/rm -f lib64
-   virtualenv -p $python27_binary --system-site-packages "$virtenv_dir"
+   virtualenv -p $python33_binary --system-site-packages "$virtenv_dir"
 
    popd > /dev/null
 
@@ -36,13 +36,13 @@ function create_virtualenv() {
 
 
 function delete_virtualenv() {
-   rm -rf $python27_dir/virtenv/*
+   rm -rf $python33_dir/virtenv/*
 
 }  #  End of function  delete_virtualenv. 
 
 
 function activate_virtualenv() {
-   source "$python27_dir/activate_virtenv"
+   source "$python33_dir/activate_virtenv"
 
 }  #  End of function  activate_virtualenv. 
 
