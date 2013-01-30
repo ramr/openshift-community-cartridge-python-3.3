@@ -1,0 +1,30 @@
+
+Steps to build on RHEL 6.3 - 
+
+1. Install pre-requisites on a devenv.
+   yum install db4 db4-devel gmp-devel gdbm-devel libffi-devel libGL-devel  \
+               tar tcl-devel tix-devel tk-devel valgrind-devel zlib-devel   \
+               lzip xz xz-devel
+
+2. Get and extract python 3.3.0 sources.
+   wget http://www.python.org/ftp/python/3.3.0/Python-3.3.0.tgz  
+   tar -zxvf Python-3.3.0.tgz 
+   cd Python-3.3.0
+
+3. Build it.
+   mkdir -p $HOME/build/python-3.3
+   ./configure  --prefix=$HOME/build/python-3.3 --enable-shared            \
+                --enable-ipv6 --with-dbmliborder=gdbm:ndbm:bdb             \
+                --with-system-expat
+   make
+
+4. Run tests.
+   make test
+
+5. Install it to $HOME/build/python-3.3
+   make install 
+
+6. Created a gzipped pod of the installation.
+   tar -cvf /tmp/python-3.3-x86_64-install.tar -C /root/build/python-3.3 ./
+   gzip /tmp/python-3.3-x86_64-install.tar
+
