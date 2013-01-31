@@ -19,19 +19,6 @@ Create a python-3.3 application (you can name it anything via -a)
     rhc app create meatpie python-3.3
 
 
-Template Sample Application Caveats
------------------------------------
-
-The default template application is optimized for app creation times/speed
-and so will run a simple WSGI HTTP server on app creation.
-For more details, see:
-http://docs.python.org/2/library/wsgiref.html#module-wsgiref.simple_server
-
-And on a first git push (without any code/setup modifications), the app
-template's setup.py will install greenlet and gevent and run the app with
-a fast WSGI server based on libevent-http (from gevent).
-For more details, see: http://www.gevent.org/
-
 
 ssh/virtualenv Caveats
 ----------------------
