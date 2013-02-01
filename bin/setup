@@ -23,9 +23,10 @@ create_virtualenv "install-setup-tools-in-the-background"
 #  activating the virtual env on the shell.
 cat > "${OPENSHIFT_HOMEDIR}/$cartridge_type/activate_virtenv"  <<AVEOF
 #  Set the library path so that the python 3.3 shared library can be found.
-export LD_LIBRARY_PATH="${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LD_LIBRARY_PATH}" 
-export LIBRARY_PATH="${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LIBRARY_PATH}" 
-source ${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/venv/bin/activate
+export LD_LIBRARY_PATH="\${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LD_LIBRARY_PATH}" 
+export LIBRARY_PATH="\${OPENSHIFT_HOMEDIR}/$cartridge_type/opt/lib:\${LIBRARY_PATH}" 
+source \${OPENSHIFT_HOMEDIR}/$cartridge_type/bin/source_env_vars
+source \${OPENSHIFT_HOMEDIR}/$cartridge_type/virtenv/venv/bin/activate
 AVEOF
 
 chmod 555 "${OPENSHIFT_HOMEDIR}/$cartridge_type/activate_virtenv"
