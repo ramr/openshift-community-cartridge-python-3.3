@@ -143,9 +143,37 @@ function _extract_files() {
 }  #  End of function  _extract_files.
 
 
+function get_distro_name_and_release() {
+   distro=$(uname |  tr '[:upper:]' '[:lower:]')
+   version=$(uname -r)
+   if [ "$distro" = "linux" ]; then
+      if [ -f "/etc/redhat-release" ]; then
+         if grep "Red Hat" /etc/redhat-release > /dev/null 2>&1; then
+            distro="rhel"
+         else
+            if grep "Fedora" /etc/redhat-release > /dev/null 2>&1; then
+               distro="fedora"
+            fi
+         fi
+         version=$(lsb_release -r | awk '{print $2}')
+     fi
+   fi
+
+   echo "$distro:$version"
+
+}  #  End of function  get_distro_name_and_release.
+
+
 function extract_package_files() {
-   #  Try the machine specific packages first and then the top level packages.
-   _extract_files "$1/$(uname -m)" "$1"
+   #  Try the distro name + version + machine specific packages first and
+   #  then the distro + machine specific package and then the top level
+   #  packages.
+   name_and_release=$(get_distro_name_and_release)
+   distro=$(echo "$name_and_release" | cut -f 1 -d ':')
+   version=$(echo "$name_and_release" | cut -f 2 -d ':')
+   _extract_files "$1/$distro/$version/$(uname -m)" "$1"
+   _extract_files "$1/$distro/$(uname -m)" "$1"
+   _extract_files "$1/$distro" "$1"
    _extract_files "$1" "$1"
 
 }  #  End of function  extract_package_files.
