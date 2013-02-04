@@ -30,8 +30,10 @@ if [ -f "${OPENSHIFT_REPO_DIR}setup.py" ]; then
       mirror_opts="-i http://mirror1.ops.rhcloud.com/mirror/python/web/simple"
    fi
 
+   pushd "$OPENSHIFT_REPO_DIR" > /dev/null
    python "${OPENSHIFT_REPO_DIR}setup.py" develop $mirror_opts
    echo " - Done processing setup.py"
+   popd > /dev/null
 fi
 
 
